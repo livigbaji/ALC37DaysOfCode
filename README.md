@@ -28,3 +28,5 @@ This project uses ES6 and other modern browser features such as indexedDB, servi
 - [ ] show current date on-top the page, to show the user the last date and time data was gotten
 
 - [ ] use prefetched currencies as options in dropdown select
+
+- [ ] disable submit button if any currency field holds anything that is not an integer
