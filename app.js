@@ -7,6 +7,33 @@ function enableConverters(){
             modal.open();
         })
     })
+
+    document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
+        box.addEventListener('input', changeEvent);
+        //box.addEventListener('keyup', changeEvent);
+    })
+}
+
+
+function changeEvent(){
+    let otherInput = Array.from(document.querySelectorAll('[data-from] input, [data-to] input')).find(input => input != this);
+    //if under from, use as is, if under to, inver rate
+    let thisParent = this.parentElement.parentElement.parentElement.parentElement
+    let rate = Object.values(JSON.parse(document.querySelector('[data-rate]').dataset.rate))[0].val;
+    let factor = ('from' in thisParent.dataset) ? rate : 1/rate;
+
+    otherInput.value = factor * this.value;
+}
+
+function setRate(){
+    let from = JSON.parse(document.querySelector('[data-from] [data-conversion]').dataset.conversion);
+    let to = JSON.parse(document.querySelector('[data-to] [data-conversion]').dataset.conversion);
+    fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${from.currencyId}_${to.currencyId}&compact=y`)
+    .then(res => res.json())
+    .then(data => {
+        document.querySelector('[data-rate]').dataset.rate = JSON.stringify(data)
+     }, err => M.toast({html : err}))
+    .catch(err =>  M.toast({html: err}))
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -32,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function(){
                 let key = JSON.parse(this.dataset.currency);
                 caller.querySelector('span').innerText = `${key.currencyName}(${key.currencySymbol})`
                 M.Modal.getInstance(document.querySelector('.modal')).close();
-                caller.classList.remove('caller');
+                caller.classList.remove('caller');  
+                setRate();
             })
         })
 
@@ -40,22 +68,18 @@ document.addEventListener('DOMContentLoaded', function(){
             let key = Object.values(results)[0];
             link.dataset.conversion = JSON.stringify(key);
             link.querySelector('span').innerText = `${key.currencyName}(${key.currencySymbol})`
+            document.querySelector('[data-rate]').dataset.rate = JSON.stringify({[`${key.currencyId}_${key.currencyId}`] : {val : 1}});
         })
+
+        
+
     }, err => M.toast({html : err}))
     .catch(err =>  M.toast({html: err}))
 
 
-    function changeEvent(){
-        fetch('https://free.currencyconverterapi.com/api/v5/convert?q=USD_NGN&compact=y')
-        .then(res => res.json())
-        .then(console.log, console.log)
-        .catch(console.log)
-    }
+    
 
-    document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
-        box.addEventListener('change', changeEvent);
-        box.addEventListener('keyup', changeEvent);
-    })
+    
     
     document.querySelector('.modal input').addEventListener('input', function(){
         let options = Array.from(document.querySelectorAll('.collection li'));
@@ -75,6 +99,11 @@ document.addEventListener('DOMContentLoaded', function(){
         let to = document.querySelector('[data-to]').children[0];
         from.replaceWith(to.cloneNode(true));
         to.replaceWith(from.cloneNode(true));
+        let rate = JSON.parse(document.querySelector('[data-rate]').dataset.rate);
+        rate = { [Object.keys(rate)[0].split('_').reverse().join('_')]:
+            {val : 1/Object.values(rate)[0].val}
+        }
+        document.querySelector('[data-rate]').dataset.rate = JSON.stringify(rate);
         enableConverters();
     })
 })
