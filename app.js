@@ -34,7 +34,7 @@ function setRate(){
         .then(data => {
             console.log(data)
             document.querySelector('[data-rate]').dataset.rate = JSON.stringify(data)
-            resolve(true)
+            resolve(Object.values(data)[0].val)
         }, err => {
             M.toast({html: 'A Network Error occured while fetching conversion rate, please try again.'})
             reject(false);
@@ -69,12 +69,17 @@ document.addEventListener('DOMContentLoaded', function(){
                 caller.dataset.conversion = this.dataset.currency;
                 let key = JSON.parse(this.dataset.currency);
                 caller.querySelector('span').innerText = `${key.currencyName}(${key.currencySymbol})`
-                setRate().then(() => {
+                setRate().then(rate => {
+                    console.log(rate);
                     document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
                         box.disabled = false;
                     })
+                    let callerBox = caller.parentElement.parentElement.querySelector('input');
+                    let otherInput = Array.from(document.querySelectorAll('[data-from] input, [data-to] input')).find(input => input != callerBox);
+                    otherInput.value = callerBox.value * rate;
                 })
                 .catch(err => {
+                    console.log(err)
                     document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
                         box.disabled = true;
                     })

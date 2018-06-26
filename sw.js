@@ -43,6 +43,6 @@ self.addEventListener('fetch', function(event){
                 }
                 return response;
         })
-        .catch(() => Promise.resolve(''))    
+        .catch(() => Promise.resolve(new Response))    
     );
 })

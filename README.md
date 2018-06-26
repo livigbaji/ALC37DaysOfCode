@@ -16,11 +16,11 @@ This project uses ES6 and other modern browser features such as indexedDB, servi
 
 - [ ] Prefetch all currencies from `https://free.currencyconverterapi.com/api/v5/countries` and save in indexedDB
 
-- [ ] save materialize
+- [x] save materialize
 
-- [ ] save index.html
+- [x] save index.html
 
-- [ ] save app.js
+- [x] save app.js
 
 
 ### App Structure
