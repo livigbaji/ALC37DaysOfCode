@@ -22,6 +22,16 @@ This project uses ES6 and other modern browser features such as indexedDB, servi
 
 - [x] save app.js
 
+- [ ] save every conversion as
+
+```js
+    {
+        date : date last fetched
+        rate : 
+        currencies : ['NGN', 'USD'] should match ['USD' 'NGN']
+    }
+```
+
 
 ### App Structure
 

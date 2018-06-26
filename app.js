@@ -32,7 +32,6 @@ function setRate(){
         fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${from.currencyId}_${to.currencyId}&compact=y`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             document.querySelector('[data-rate]').dataset.rate = JSON.stringify(data)
             resolve(Object.values(data)[0].val)
         }, err => {
@@ -70,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 let key = JSON.parse(this.dataset.currency);
                 caller.querySelector('span').innerText = `${key.currencyName}(${key.currencySymbol})`
                 setRate().then(rate => {
-                    console.log(rate);
                     document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
                         box.disabled = false;
                     })
