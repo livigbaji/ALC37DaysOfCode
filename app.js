@@ -26,14 +26,25 @@ function changeEvent(){
 }
 
 function setRate(){
-    let from = JSON.parse(document.querySelector('[data-from] [data-conversion]').dataset.conversion);
-    let to = JSON.parse(document.querySelector('[data-to] [data-conversion]').dataset.conversion);
-    fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${from.currencyId}_${to.currencyId}&compact=y`)
-    .then(res => res.json())
-    .then(data => {
-        document.querySelector('[data-rate]').dataset.rate = JSON.stringify(data)
-     }, err => M.toast({html : err}))
-    .catch(err =>  M.toast({html: err}))
+    return new Promise((resolve, reject)=>{
+        let from = JSON.parse(document.querySelector('[data-from] [data-conversion]').dataset.conversion);
+        let to = JSON.parse(document.querySelector('[data-to] [data-conversion]').dataset.conversion);
+        fetch(`https://free.currencyconverterapi.com/api/v5/convert?q=${from.currencyId}_${to.currencyId}&compact=y`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            document.querySelector('[data-rate]').dataset.rate = JSON.stringify(data)
+            resolve(true)
+        }, err => {
+            M.toast({html: 'A Network Error occured while fetching conversion rate, please try again.'})
+            reject(false);
+        })
+        .catch(err =>  {
+            M.toast({html: 'A Network Error occured while fetching conversion rate, please try again.'})
+            reject(false)
+        })
+    })
+    
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -58,9 +69,20 @@ document.addEventListener('DOMContentLoaded', function(){
                 caller.dataset.conversion = this.dataset.currency;
                 let key = JSON.parse(this.dataset.currency);
                 caller.querySelector('span').innerText = `${key.currencyName}(${key.currencySymbol})`
-                M.Modal.getInstance(document.querySelector('.modal')).close();
-                caller.classList.remove('caller');  
-                setRate();
+                setRate().then(() => {
+                    document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
+                        box.disabled = false;
+                    })
+                })
+                .catch(err => {
+                    document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
+                        box.disabled = true;
+                    })
+                })
+                .then(() => {
+                    M.Modal.getInstance(document.querySelector('.modal')).close();
+                    caller.classList.remove('caller');  
+                })
             })
         })
 
