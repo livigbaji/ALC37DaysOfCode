@@ -72,9 +72,10 @@ document.addEventListener('DOMContentLoaded', function(){
                     document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
                         box.disabled = false;
                     })
-                    let callerBox = caller.parentElement.parentElement.querySelector('input');
+                    let parent = caller.parentElement.parentElement.parentElement
+                    let callerBox = parent.querySelector('input');
                     let otherInput = Array.from(document.querySelectorAll('[data-from] input, [data-to] input')).find(input => input != callerBox);
-                    otherInput.value = callerBox.value * rate;
+                    otherInput.value = callerBox.value * (('from' in parent.dataset) ? rate : 1/rate);
                 })
                 .catch(err => {
                     console.log(err)
