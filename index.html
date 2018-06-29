@@ -85,10 +85,14 @@
                 if(e.currentTarget.downlink){
                     if(btn){
                         btn.style.visibility = 'visible'
+                        
                     }
                 }else{
                     if(btn){
                         btn.style.visibility = 'hidden'
+                        if(M){
+                            M.toast({html : "You are offline and won't be able to access all conversion options available"})
+                        }
                     }
                 }
             })
