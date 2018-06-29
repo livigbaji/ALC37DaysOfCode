@@ -1,5 +1,6 @@
 # ALC37DaysOfCode
-Andela Learning Community 7 days of code Challenge for Mobile Web Specialist
+Andela Learning Community 7 days of code Challenge for Mobile Web Specialist and is located [Here](https://bestbrain10.github.io/ALC37DaysOfCode)
+
 
 
 ## About
@@ -14,7 +15,7 @@ This project uses ES6 and other modern browser features such as indexedDB, servi
 
 ### On service worker installation
 
-- [ ] Prefetch all currencies from `https://free.currencyconverterapi.com/api/v5/countries` and save in indexedDB
+- [x] Prefetch all currencies from `https://free.currencyconverterapi.com/api/v5/countries` and save in indexedDB
 
 - [x] save materialize
 
@@ -22,7 +23,7 @@ This project uses ES6 and other modern browser features such as indexedDB, servi
 
 - [x] save app.js
 
-- [ ] save every conversion as
+- [x] save every conversion as
 
 ```js
     {
@@ -35,6 +36,6 @@ This project uses ES6 and other modern browser features such as indexedDB, servi
 
 ### App Structure
 
-- [ ] show current date on-top the page, to show the user the last date and time data was gotten
+- [x] show current date on-top the page, to show the user the last date and time data was gotten
 
 - [x] use prefetched currencies as options in dropdown select
