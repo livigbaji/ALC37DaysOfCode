@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <title>Currency Converter Application</title>
@@ -17,7 +18,7 @@
                     <div class="col s12 m5" data-from>
                         <div class="row">
                             <div class="col s12" style="cursor: pointer;">
-                                <h5 data-conversion="" style="overflow-wrap: break-word"><span></span><small class="material-icons">edit</small></h5>
+                                <h5 data-currency="" style="overflow-wrap: break-word"><span></span><small class="material-icons">edit</small></h5>
                             </div>
                             <div class="col s12">
                                 <div class="input-field col s12">
@@ -39,7 +40,7 @@
                         <div class="col s12 m5" data-to>
                                 <div class="row">
                                         <div class="col s12" style="cursor: pointer;">
-                                            <h5 data-conversion="" style="overflow-wrap: break-word"><span></span><small class="material-icons">edit</small></h5>
+                                            <h5 data-currency="" style="overflow-wrap: break-word"><span></span><small class="material-icons">edit</small></h5>
                                         </div>
                                         <div class="col s12">
                                             <div class="input-field col s12">
@@ -49,7 +50,12 @@
                                         </div>
                                 </div>
                         </div>
-            
+                        <div class="col s12 m12">
+                            <div class="center-align">
+                                <h5 data-date></h5>
+                                <button class="btn" data-update>Update</button>
+                            </div>
+                        </div>
                     </div>
         </div>
     </div>
@@ -69,10 +75,26 @@
     <script>
         if('serviceWorker' in navigator){
             navigator.serviceWorker.register('sw.js', {scope : '/'})
-            .then(console.log, console.log)
-            .catch(console.log)
+            .then(() => {}, () => {})
+            .catch(() => {})
         }    
+
+        if('connection' in navigator){
+            navigator.connection.addEventListener('change', function(e){
+                let btn = document.querySelector('button');
+                if(e.currentTarget.downlink){
+                    if(btn){
+                        btn.style.visibility = 'visible'
+                    }
+                }else{
+                    if(btn){
+                        btn.style.visibility = 'hidden'
+                    }
+                }
+            })
+        }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.2/localforage.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <script src="app.js"></script>
 </body>

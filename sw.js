@@ -1,4 +1,4 @@
-const cacheVer = 'app-shell-1';
+const cacheVer = 'app-shell-4';
 
 
 self.addEventListener('install', event => {
@@ -6,6 +6,8 @@ self.addEventListener('install', event => {
         caches.open(cacheVer).then(cache => {
             return cache.addAll([
                 'app.js',
+                'favicon.ico',
+                'https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.2/localforage.js',
                 'index.html',
                 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js',
                 'https://fonts.googleapis.com/icon?family=Material+Icons',
