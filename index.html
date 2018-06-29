@@ -74,7 +74,8 @@
 
     <script>
         if('serviceWorker' in navigator){
-            navigator.serviceWorker.register('sw.js', {scope : '/'})
+            let path = new URL(location.href).pathname;
+            navigator.serviceWorker.register('sw.js', {scope : path})
             .then(() => {}, () => {})
             .catch(() => {})
         }    
