@@ -30,21 +30,20 @@ self.addEventListener('activate', function(event){
 })
 
 self.addEventListener('fetch', function(event){
-    
-    event.respondWith( 
-        caches.match(event.request)
-         .then(response => {
-           return response || fetch(event.request);
-        })
-        .then(response => {
-            return Promise.all([caches.open(cacheVer), Promise.resolve(response)])
-        })
-        .then(([cache, response]) => {
-                if(!event.request.url.includes('chrome-extension')){
-                    cache.put(event.request,response.clone());
-                }
-                return response;
-        })
-        .catch(() => Promise.resolve(new Response))    
-    );
+        event.respondWith( 
+            caches.match(event.request)
+             .then(response => {
+               return response || fetch(event.request)
+               .then(response => {
+                    return Promise.all([caches.open(cacheVer), Promise.resolve(response)])
+                })
+                .then(([cache, response]) => {
+                    if(!event.request.url.includes('chrome-extension')){
+                        cache.put(event.request,response.clone());
+                    }
+                    return response;
+                });
+            })
+            .catch(() => Promise.resolve(new Response))    
+        );
 })
