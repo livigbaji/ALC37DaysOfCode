@@ -40,7 +40,6 @@ self.addEventListener('fetch', event=>{
                 cache.put(event.request,response.clone());
                 return response;
             }catch(e){
-                console.log(e)
                 return new Response
             }
         }())  
