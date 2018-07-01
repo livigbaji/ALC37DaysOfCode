@@ -1,4 +1,4 @@
-const cacheVer = 'app-shell-5';
+const cacheVer = 'app-shell-6';
 
 
 self.addEventListener('install', event => {
@@ -11,7 +11,8 @@ self.addEventListener('install', event => {
                 'index.html',
                 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js',
                 'https://fonts.googleapis.com/icon?family=Material+Icons',
-                'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css'
+                'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css',
+                'https://free.currencyconverterapi.com/api/v5/countries'
             ]);
         }).then(() => {
           return self.skipWaiting();
