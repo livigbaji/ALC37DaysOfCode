@@ -2,6 +2,31 @@
 
 class App{
 
+    static online(){
+           App.showOfflineMessage(navigator.onLine);
+          if('connection' in navigator){
+            navigator.connection.addEventListener('change', function(e){
+                App.showOfflineMessage(e.currentTarget.downlink);
+            })
+          }   
+    }
+    
+    static showOfflineMessage(status = true){
+        let btn = document.querySelector('button');
+        if(status){
+            if(btn){
+                btn.style.visibility = 'visible'
+
+            }
+        }else{
+            if(btn){
+                btn.style.visibility = 'hidden'
+                if(M){
+                    M.toast({html : "You are offline and won't be able to access all conversion options available"})
+                }
+            }
+      }
+    }
     
     static disableBoxes(state = true){
         document.querySelectorAll('[data-from] input, [data-to] input').forEach(box => {
