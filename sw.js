@@ -1,4 +1,4 @@
-const cacheVer = 'app-shell-4';
+const cacheVer = 'app-shell-5';
 
 
 self.addEventListener('install', event => {
