@@ -282,6 +282,7 @@ class Conversion{
 
 document.addEventListener('DOMContentLoaded', function(){
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+    App.online();
     App.init()
     .then(currencies => {
         Conversion.listen();
