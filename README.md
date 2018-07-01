@@ -7,6 +7,7 @@ Andela Learning Community 7 days of code Challenge for Mobile Web Specialist and
 
 This project uses ES6 and other modern browser features such as indexedDB, service worker and the cache API to fetch currency conversion information from Freecurrencyconverterapi to convert currencies regardless of whether users are online or offline.
 
+When offline, the user can only access previously used conversions
 
 
 
@@ -28,8 +29,8 @@ This project uses ES6 and other modern browser features such as indexedDB, servi
 ```js
     {
         date : date last fetched
-        rate : 
-        currencies : ['NGN', 'USD'] should match ['USD' 'NGN']
+        rate : Number 
+        key : from_to
     }
 ```
 
